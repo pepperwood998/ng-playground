@@ -1,0 +1,37 @@
+<div class="w-full flex justify-center mt-4">
+  <div class="w-1/2">
+    <form [formGroup]="addInforForm" (submit)="onSubmit()">
+      <mat-card>
+        <mat-card-title>Information</mat-card-title>
+        <mat-card-content>
+          <ng-container formGroupName="languageForms">
+            <ng-container *ngFor="let lang of languages; let i = index">
+              <div [formGroupName]="languages[i]" class="mb-8">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Title</mat-label>
+                  <input formControlName="title" required matInput placeholder="Title">
+                  <mat-icon matSuffix>title</mat-icon>
+                  <mat-error *ngIf="getRequiredError('title', lang)">
+                    Title is required
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Content</mat-label>
+                  <textarea formControlName="content" required matInput placeholder="Content" rows="6">
+                  </textarea>
+                  <mat-error *ngIf="getRequiredError('content', lang)">
+                    Content is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-card-content>
+        <div class="text-right">
+          <button [disabled]="addInforForm.invalid" mat-flat-button color="primary">Save</button>
+          <button mat-button color="warn">Cancel</button>
+        </div>
+      </mat-card>
+    </form>
+  </div>
+</div>
