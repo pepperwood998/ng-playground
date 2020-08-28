@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {
-  AbstractControl,
-  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
-  Validators,
-  FormControl
+  Validators
 } from '@angular/forms';
-import { asLiteral } from '@angular/compiler/src/render3/view/util';
+
+import { cleanFilterValidator } from '#shared/validators/clean-filter.validator';
 
 @Component({
   selector: 'app-home',
@@ -37,16 +36,36 @@ export class HomeComponent implements OnInit {
 
   createLanguageForm(): FormGroup {
     return this.fb.group({
-      title: ['', [Validators.required]],
+      title: [
+        '',
+        [
+          Validators.required,
+          Validators.minLength(4),
+          cleanFilterValidator(/fucks/i)
+        ]
+      ],
       content: ['', [Validators.required]]
     });
   }
 
   getRequiredError(field: string, code: string): boolean {
-    const validator = this.getControl(field, code).validator(
-      {} as AbstractControl
+    return (
+      this.getFieldInvalid && this.getControl(field, code).errors?.required
     );
-    return this.getFieldInvalid && validator?.required;
+  }
+
+  getMinLengthError(field: string, code: string): boolean {
+    return (
+      !this.getRequiredError(field, code) &&
+      this.getControl(field, code).errors?.minlength
+    );
+  }
+
+  getBadWordError(field: string, code: string): boolean {
+    return (
+      !this.getMinLengthError(field, code) &&
+      this.getControl(field, code).errors?.badWord
+    );
   }
 
   getFieldInvalid(field: string, code: string): boolean {

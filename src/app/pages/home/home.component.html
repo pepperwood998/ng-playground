@@ -14,6 +14,12 @@
                   <mat-error *ngIf="getRequiredError('title', lang)">
                     Title is required
                   </mat-error>
+                  <mat-error *ngIf="getMinLengthError('title', lang)">
+                    Title must have at least 4 characters
+                  </mat-error>
+                  <mat-error *ngIf="getBadWordError('title', lang)">
+                    Must not contain 'fucks'
+                  </mat-error>
                 </mat-form-field>
                 <mat-form-field appearance="outline" class="w-full">
                   <mat-label>Content</mat-label>
