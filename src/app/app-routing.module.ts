@@ -7,8 +7,20 @@ const routes: Routes = [
   {
     path: '',
     component: MainLayoutComponent,
-    loadChildren: () =>
-      import('./pages/home/home.module').then((m) => m.HomeModule)
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./pages/home/home.module').then((m) => m.HomeModule)
+      },
+      {
+        path: 'datatable',
+        loadChildren: () =>
+          import('./pages/datatable/datatable.module').then(
+            (m) => m.DatatableModule
+          )
+      }
+    ]
   }
 ];
 

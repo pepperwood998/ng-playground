@@ -9,8 +9,16 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
-const MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
+import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
+
+const MODULES = [
+  CommonModule,
+  FormsModule,
+  ReactiveFormsModule,
+  NgxDatatableModule
+];
 
 const MATERIAL_MODULES = [
   MatFormFieldModule,
@@ -23,9 +31,11 @@ const MATERIAL_MODULES = [
   MatRadioModule
 ];
 
+const COMPONENTS = [BaseDatatableComponent];
+
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
-  exports: [...MODULES, ...MATERIAL_MODULES]
+  declarations: [...COMPONENTS],
+  imports: [...MODULES, ...MATERIAL_MODULES],
+  exports: [...MODULES, ...MATERIAL_MODULES, ...COMPONENTS]
 })
 export class ShareModule {}
