@@ -8,6 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatRadioModule } from '@angular/material/radio';
 
 const MODULES = [CommonModule, FormsModule, ReactiveFormsModule];
 
@@ -18,7 +19,8 @@ const MATERIAL_MODULES = [
   MatIconModule,
   MatDividerModule,
   MatButtonModule,
-  MatSelectModule
+  MatSelectModule,
+  MatRadioModule
 ];
 
 @NgModule({

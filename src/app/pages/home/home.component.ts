@@ -42,12 +42,17 @@ export class HomeComponent implements OnInit {
     });
     this.addInforForm = this.fb.group({
       category: ['', Validators.required],
-      languageData
+      languageData,
+      public: [true, Validators.required]
     });
   }
 
   onSubmit(): void {
     console.log(this.addInforForm.value);
+  }
+
+  cancelAddInfor(e): void {
+    e.preventDefault();
   }
 
   createLanguageForm(): FormGroup {
