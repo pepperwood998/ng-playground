@@ -4,6 +4,17 @@
       <mat-card>
         <mat-card-title>Information</mat-card-title>
         <mat-card-content>
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select required formControlName="category">
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="getRequiredError(categoryControl)">
+              Please select a category
+            </mat-error>
+          </mat-form-field>
           <ng-container formGroupName="languageData">
             <ng-container *ngFor="let lang of languages; let i = index">
               <div [formGroupName]="languages[i]" class="mb-8">
@@ -11,13 +22,13 @@
                   <mat-label>Title</mat-label>
                   <input formControlName="title" required matInput placeholder="Title">
                   <mat-icon matSuffix>title</mat-icon>
-                  <mat-error *ngIf="getRequiredError('title', lang)">
+                  <mat-error *ngIf="getLanguageRequiredError('title', lang)">
                     Title is required
                   </mat-error>
-                  <mat-error *ngIf="getMinLengthError('title', lang)">
+                  <mat-error *ngIf="getLanguageMinLengthError('title', lang)">
                     Title must have at least 4 characters
                   </mat-error>
-                  <mat-error *ngIf="getBadWordError('title', lang)">
+                  <mat-error *ngIf="getLanguageBadWordError('title', lang)">
                     Must not contain 'fucks'
                   </mat-error>
                 </mat-form-field>
