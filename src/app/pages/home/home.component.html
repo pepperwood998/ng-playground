@@ -4,7 +4,7 @@
       <mat-card>
         <mat-card-title>Information</mat-card-title>
         <mat-card-content>
-          <ng-container formGroupName="languageForms">
+          <ng-container formGroupName="languageData">
             <ng-container *ngFor="let lang of languages; let i = index">
               <div [formGroupName]="languages[i]" class="mb-8">
                 <mat-form-field appearance="outline" class="w-full">
@@ -35,7 +35,7 @@
         </mat-card-content>
         <div class="text-right">
           <button [disabled]="addInforForm.invalid" mat-flat-button color="primary">Save</button>
-          <button mat-button color="warn">Cancel</button>
+          <a routerLink="/" mat-button color="warn">Cancel</a>
         </div>
       </mat-card>
     </form>

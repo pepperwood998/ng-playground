@@ -21,12 +21,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.languages = ['ja', 'en'];
-    const languageForms = this.fb.group({});
+    const languageData = this.fb.group({});
     this.languages.forEach((code) => {
-      languageForms.addControl(code, this.createLanguageForm());
+      languageData.addControl(code, this.createLanguageForm());
     });
     this.addInforForm = this.fb.group({
-      languageForms
+      languageData
     });
   }
 
@@ -50,38 +50,38 @@ export class HomeComponent implements OnInit {
 
   getRequiredError(field: string, code: string): boolean {
     return (
-      this.getFieldInvalid && this.getControl(field, code).errors?.required
+      this.getFieldInvalid && this.getLanguageControl(field, code).errors?.required
     );
   }
 
   getMinLengthError(field: string, code: string): boolean {
     return (
       !this.getRequiredError(field, code) &&
-      this.getControl(field, code).errors?.minlength
+      this.getLanguageControl(field, code).errors?.minlength
     );
   }
 
   getBadWordError(field: string, code: string): boolean {
     return (
       !this.getMinLengthError(field, code) &&
-      this.getControl(field, code).errors?.badWord
+      this.getLanguageControl(field, code).errors?.badWord
     );
   }
 
   getFieldInvalid(field: string, code: string): boolean {
-    const control = this.getControl(field, code);
+    const control = this.getLanguageControl(field, code);
     return control.invalid && (control.touched || control.dirty);
   }
 
-  getControl(field: string, code: string): FormControl {
-    return this.getLanguageForm(code).get(field) as FormControl;
+  getLanguageControl(field: string, code: string): FormControl {
+    return this.getSingleLanguageDataForm(code).get(field) as FormControl;
   }
 
-  getLanguageForm(code: string): FormGroup {
-    return this.languageForms.get(code) as FormGroup;
+  getSingleLanguageDataForm(code: string): FormGroup {
+    return this.languageDataForm.get(code) as FormGroup;
   }
 
-  get languageForms(): FormGroup {
-    return this.addInforForm.get('languageForms') as FormGroup;
+  get languageDataForm(): FormGroup {
+    return this.addInforForm.get('languageData') as FormGroup;
   }
 }
