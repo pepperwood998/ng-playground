@@ -1,29 +1,31 @@
-import { Component, OnInit, AfterContentInit } from '@angular/core';
+import { Component, OnChanges, OnInit } from '@angular/core';
 import {
-  FormGroup,
   FormBuilder,
-  Validators,
-  FormControl
+  FormControl,
+  FormGroup,
+  Validators
 } from '@angular/forms';
-import { tap, map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-
-import { cleanFilterValidator } from '#shared/validators/clean-filter.validator';
-import { InformationService } from '#shared/services/information.service';
-import { Information } from '#models/information.model';
 import { ActivatedRoute } from '@angular/router';
+import { finalize, map } from 'rxjs/operators';
+
+import { InformationService } from '#shared/services/information.service';
+import { cleanFilterValidator } from '#shared/validators/clean-filter.validator';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-handling',
   templateUrl: './form-handling.component.html',
   styleUrls: ['./form-handling.component.scss']
 })
-export class FormHandlingComponent implements OnInit {
+export class FormHandlingComponent implements OnInit, OnChanges {
   addInforForm: FormGroup;
+  initialFormValue;
   categories: { value: string; name: string }[];
   languages: string[];
   loading: boolean;
-  information: Observable<Information>;
+
+  isUpdate: boolean;
+  notFound: boolean;
 
   constructor(
     private fb: FormBuilder,
@@ -56,30 +58,51 @@ export class FormHandlingComponent implements OnInit {
       languageData,
       public: [true, Validators.required]
     });
+    this.initialFormValue = this.addInforForm.value;
 
     this.route.params.pipe(map((params) => params.id)).subscribe((id) => {
+      if (this.sub) {
+        this.sub.unsubscribe();
+      }
+      this.resetForm();
       if (id) {
+        this.isUpdate = true;
         this.fetchInformation(id);
       }
     });
   }
 
-  fetchInformation(id: number): void {
+  ngOnChanges(): void {
+    console.log('changed');
+  }
+
+  sub: Subscription;
+  private fetchInformation(id: number): void {
     this.loading = true;
-    this.informationService
+    this.sub = this.informationService
       .getInformation(id)
-      .pipe(tap((information) => this.addInforForm.patchValue(information)))
-      .subscribe(() => {
-        this.loading = false;
+      .pipe(finalize(() => (this.loading = false)))
+      .subscribe((information) => {
+        if (information && information.id) {
+          this.addInforForm.patchValue(information);
+        } else {
+          this.notFound = true;
+        }
       });
   }
 
   onSubmit(): void {
-    console.log(this.addInforForm.value);
+    console.log(this.isUpdate, this.addInforForm.value);
   }
 
-  cancelAddInfor(e): void {
+  cancelAddInfor(e: Event): void {
     e.preventDefault();
+  }
+
+  resetForm(): void {
+    this.addInforForm.reset(this.initialFormValue);
+    this.isUpdate = false;
+    this.notFound = false;
   }
 
   createLanguageForm(): FormGroup {

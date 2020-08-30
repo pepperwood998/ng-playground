@@ -1,8 +1,13 @@
 <div class="w-full flex justify-center mt-4">
   <div class="w-1/2">
     <form [formGroup]="addInforForm" (submit)="onSubmit()" class="relative">
-      <div *ngIf="loading" class="absolute flex justify-center items-center bg-gray-100 bg-opacity-75 inset-0 z-10">
-        <mat-spinner [diameter]="50"></mat-spinner>
+      <div *ngIf="loading || notFound"
+        class="absolute flex justify-center items-center bg-gray-100 bg-opacity-75 inset-0 z-10">
+        <mat-spinner *ngIf="loading" [diameter]="50"></mat-spinner>
+        <div *ngIf="notFound" class="text-center">
+          <div>Information not found</div>
+          <a routerLink="/form-handling" class="text-blue-600 hover:underline">Add Information</a>
+        </div>
       </div>
       <mat-card>
         <mat-card-title>Information</mat-card-title>

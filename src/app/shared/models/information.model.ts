@@ -3,7 +3,7 @@ interface InformationLanguage {
   content: string;
 }
 
-export interface Information {
+export class Information {
   id: number;
   category: string;
   languageData: { [key: string]: InformationLanguage };
