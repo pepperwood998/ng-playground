@@ -14,6 +14,13 @@ const routes: Routes = [
           import('./pages/home/home.module').then((m) => m.HomeModule)
       },
       {
+        path: 'form-handling',
+        loadChildren: () =>
+          import('./pages/form-handling/form-handling.module').then(
+            (m) => m.FormHandlingModule
+          )
+      },
+      {
         path: 'datatable',
         loadChildren: () =>
           import('./pages/datatable/datatable.module').then(

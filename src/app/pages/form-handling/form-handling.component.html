@@ -1,0 +1,58 @@
+<div class="w-full flex justify-center mt-4">
+  <div class="w-1/2">
+    <form [formGroup]="addInforForm" (submit)="onSubmit()">
+      <mat-card>
+        <mat-card-title>Information</mat-card-title>
+        <mat-card-content>
+          <mat-form-field appearance="fill">
+            <mat-label>Category</mat-label>
+            <mat-select required formControlName="category">
+              <mat-option *ngFor="let category of categories" [value]="category.value">
+                {{ category.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="getRequiredError(categoryControl)">
+              Please select a category
+            </mat-error>
+          </mat-form-field>
+          <ng-container formGroupName="languageData">
+            <ng-container *ngFor="let lang of languages; let i = index">
+              <div [formGroupName]="languages[i]" class="mb-8">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Title</mat-label>
+                  <input formControlName="title" required matInput placeholder="Title">
+                  <mat-icon matSuffix>title</mat-icon>
+                  <mat-error *ngIf="getLanguageRequiredError('title', lang)">
+                    Title is required
+                  </mat-error>
+                  <mat-error *ngIf="getLanguageMinLengthError('title', lang)">
+                    Title must have at least 4 characters
+                  </mat-error>
+                  <mat-error *ngIf="getLanguageBadWordError('title', lang)">
+                    Must not contain 'fucks'
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>Content</mat-label>
+                  <textarea formControlName="content" required matInput placeholder="Content" rows="6">
+                  </textarea>
+                  <mat-error *ngIf="getRequiredError('content', lang)">
+                    Content is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </ng-container>
+          <mat-radio-group required formControlName="public">
+            <mat-radio-button [value]="true">Public</mat-radio-button>
+            <mat-radio-button [value]="false" class="ml-4">Private</mat-radio-button>
+          </mat-radio-group>
+        </mat-card-content>
+        <div class="text-right">
+          <button [disabled]="addInforForm.invalid" mat-flat-button color="primary">Save</button>
+          <button (click)="cancelAddInfor($event)" mat-button color="warn">Cancel</button>
+        </div>
+      </mat-card>
+    </form>
+  </div>
+</div>
