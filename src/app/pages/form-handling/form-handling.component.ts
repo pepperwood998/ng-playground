@@ -5,7 +5,7 @@ import {
   Validators,
   FormControl
 } from '@angular/forms';
-import { tap } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 import { cleanFilterValidator } from '#shared/validators/clean-filter.validator';
@@ -22,7 +22,6 @@ export class FormHandlingComponent implements OnInit {
   addInforForm: FormGroup;
   categories: { value: string; name: string }[];
   languages: string[];
-  id: number;
   loading: boolean;
   information: Observable<Information>;
 
@@ -58,16 +57,21 @@ export class FormHandlingComponent implements OnInit {
       public: [true, Validators.required]
     });
 
-    this.id = this.route.snapshot.params.id;
-    if (this.id) {
-      this.loading = true;
-      this.informationService
-        .getInformation(this.id)
-        .pipe(tap((information) => this.addInforForm.patchValue(information)))
-        .subscribe(() => {
-          this.loading = false;
-        });
-    }
+    this.route.params.pipe(map((params) => params.id)).subscribe((id) => {
+      if (id) {
+        this.fetchInformation(id);
+      }
+    });
+  }
+
+  fetchInformation(id: number): void {
+    this.loading = true;
+    this.informationService
+      .getInformation(id)
+      .pipe(tap((information) => this.addInforForm.patchValue(information)))
+      .subscribe(() => {
+        this.loading = false;
+      });
   }
 
   onSubmit(): void {

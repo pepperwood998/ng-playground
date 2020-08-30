@@ -15,8 +15,10 @@ const routes: Routes = [
       },
       {
         path: 'form-handling',
-        redirectTo: 'form-handling/',
-        pathMatch: 'full'
+        loadChildren: () =>
+          import('./pages/form-handling/form-handling.module').then(
+            (m) => m.FormHandlingModule
+          )
       },
       {
         path: 'form-handling/:id',
