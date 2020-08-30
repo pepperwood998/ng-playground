@@ -1,12 +1,17 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterContentInit } from '@angular/core';
 import {
   FormGroup,
   FormBuilder,
   Validators,
   FormControl
 } from '@angular/forms';
+import { tap } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { cleanFilterValidator } from '#shared/validators/clean-filter.validator';
+import { InformationService } from '#shared/services/information.service';
+import { Information } from '#models/information.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-form-handling',
@@ -17,8 +22,15 @@ export class FormHandlingComponent implements OnInit {
   addInforForm: FormGroup;
   categories: { value: string; name: string }[];
   languages: string[];
+  id: number;
+  loading: boolean;
+  information: Observable<Information>;
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private route: ActivatedRoute,
+    private informationService: InformationService
+  ) {}
 
   ngOnInit(): void {
     this.categories = [
@@ -45,6 +57,17 @@ export class FormHandlingComponent implements OnInit {
       languageData,
       public: [true, Validators.required]
     });
+
+    this.id = this.route.snapshot.params.id;
+    if (this.id) {
+      this.loading = true;
+      this.informationService
+        .getInformation(this.id)
+        .pipe(tap((information) => this.addInforForm.patchValue(information)))
+        .subscribe(() => {
+          this.loading = false;
+        });
+    }
   }
 
   onSubmit(): void {

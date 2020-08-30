@@ -9,15 +9,18 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
+import { HttpClientModule } from '@angular/common/http';
 
 const MODULES = [
   CommonModule,
   FormsModule,
   ReactiveFormsModule,
-  NgxDatatableModule
+  NgxDatatableModule,
+  HttpClientModule
 ];
 
 const MATERIAL_MODULES = [
@@ -28,7 +31,8 @@ const MATERIAL_MODULES = [
   MatDividerModule,
   MatButtonModule,
   MatSelectModule,
-  MatRadioModule
+  MatRadioModule,
+  MatProgressSpinnerModule
 ];
 
 const COMPONENTS = [BaseDatatableComponent];
