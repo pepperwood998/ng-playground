@@ -1,9 +1,17 @@
-import { Component, OnChanges, OnInit } from '@angular/core';
+import {
+  Component,
+  OnChanges,
+  OnInit,
+  ViewChild,
+  AfterViewInit
+} from '@angular/core';
 import {
   FormBuilder,
   FormControl,
   FormGroup,
-  Validators
+  Validators,
+  NgForm,
+  FormArray
 } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { finalize, map } from 'rxjs/operators';
@@ -17,7 +25,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './form-handling.component.html',
   styleUrls: ['./form-handling.component.scss']
 })
-export class FormHandlingComponent implements OnInit, OnChanges {
+export class FormHandlingComponent implements OnInit, AfterViewInit {
   addInforForm: FormGroup;
   initialFormValue;
   categories: { value: string; name: string }[];
@@ -26,6 +34,8 @@ export class FormHandlingComponent implements OnInit, OnChanges {
 
   isUpdate: boolean;
   notFound: boolean;
+
+  @ViewChild('myForm') myForm: NgForm;
 
   constructor(
     private fb: FormBuilder,
@@ -72,8 +82,8 @@ export class FormHandlingComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnChanges(): void {
-    console.log('changed');
+  ngAfterViewInit() {
+    console.log(this.myForm);
   }
 
   sub: Subscription;
@@ -92,15 +102,52 @@ export class FormHandlingComponent implements OnInit, OnChanges {
   }
 
   onSubmit(): void {
-    console.log(this.isUpdate, this.addInforForm.value);
+    const updatedValues = {};
+    this.getUpdates(this.addInforForm, updatedValues);
+    console.log(updatedValues);
   }
 
   cancelAddInfor(e: Event): void {
     e.preventDefault();
   }
 
+  private getUpdates(
+    formItem: FormGroup | FormArray | FormControl,
+    updatedValues: any,
+    name?: string
+  ) {
+    if (formItem instanceof FormControl) {
+      if (name && formItem.dirty) {
+        updatedValues[name] = formItem.value;
+      }
+    } else {
+      for (const formControlName in formItem.controls) {
+        if (formItem.controls.hasOwnProperty(formControlName)) {
+          const formControl = formItem.controls[formControlName];
+
+          if (formControl instanceof FormControl) {
+            this.getUpdates(formControl, updatedValues, formControlName);
+          } else if (
+            formControl instanceof FormArray &&
+            formControl.dirty &&
+            formControl.controls.length > 0
+          ) {
+            updatedValues[formControlName] = [];
+            this.getUpdates(formControl, updatedValues[formControlName]);
+          } else if (formControl instanceof FormGroup && formControl.dirty) {
+            updatedValues[formControlName] = {};
+            this.getUpdates(formControl, updatedValues[formControlName]);
+          }
+        }
+      }
+    }
+  }
+
   resetForm(): void {
-    this.addInforForm.reset(this.initialFormValue);
+    if (this.myForm) {
+      this.myForm.resetForm(this.initialFormValue);
+    }
+    // this.addInforForm.reset(this.initialFormValue);
     this.isUpdate = false;
     this.notFound = false;
   }
