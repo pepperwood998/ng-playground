@@ -10,10 +10,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { HttpClientModule } from '@angular/common/http';
 
 import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
-import { HttpClientModule } from '@angular/common/http';
+import { SomeDialogComponent } from '#components/shared/some-dialog/some-dialog.component';
+import { OtherDialogComponent } from '#components/shared/other-dialog/other-dialog.component';
 
 const MODULES = [
   CommonModule,
@@ -32,10 +35,15 @@ const MATERIAL_MODULES = [
   MatButtonModule,
   MatSelectModule,
   MatRadioModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
+  MatDialogModule
 ];
 
-const COMPONENTS = [BaseDatatableComponent];
+const COMPONENTS = [
+  BaseDatatableComponent,
+  SomeDialogComponent,
+  OtherDialogComponent
+];
 
 @NgModule({
   declarations: [...COMPONENTS],

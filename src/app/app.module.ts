@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { MainLayoutComponent } from '#layout/main-layout/main-layout.component';
 import { InformationService } from '#services/information.service';
 import { CommonService } from '#services/common.service';
+import { DialogService } from '#services/dialog.service';
 import { ShareModule } from '#modules/share.module';
 
 @NgModule({
@@ -17,7 +18,7 @@ import { ShareModule } from '#modules/share.module';
     BrowserAnimationsModule,
     ShareModule
   ],
-  providers: [InformationService, CommonService],
+  providers: [InformationService, CommonService, DialogService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
