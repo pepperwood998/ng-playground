@@ -31,6 +31,13 @@ const routes: Routes = [
           import('./pages/datatable/datatable.module').then(
             (m) => m.DatatableModule
           )
+      },
+      {
+        path: 'reactive-file',
+        loadChildren: () =>
+          import('./pages/reactive-file/reactive-file.module').then(
+            (m) => m.ReactiveFileModule
+          )
       }
     ]
   }
