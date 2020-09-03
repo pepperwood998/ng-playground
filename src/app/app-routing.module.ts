@@ -38,6 +38,13 @@ const routes: Routes = [
           import('./pages/reactive-file/reactive-file.module').then(
             (m) => m.ReactiveFileModule
           )
+      },
+      {
+        path: 'expansion-panel',
+        loadChildren: () =>
+          import('./pages/expansion-panel/expansion-panel.module').then(
+            (m) => m.ExpansionPanelModule
+          )
       }
     ]
   }
