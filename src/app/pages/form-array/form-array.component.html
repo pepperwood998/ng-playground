@@ -1,0 +1,23 @@
+<div class="w-full flex justify-center mt-4">
+  <div class="w-1/2">
+    <form [formGroup]="myForm" (submit)="onSubmit()">
+      <mat-card>
+        <mat-card-content>
+          <ng-container formArrayName="nameTranslations">
+            <ng-container *ngFor="let lang of languages; let i = index">
+              <div [formGroupName]="i">
+                <mat-form-field appearance="outline" class="w-full">
+                  <mat-label>{{ lang }}</mat-label>
+                  <input formControlName="name" required matInput [placeholder]="lang">
+                </mat-form-field>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-card-content>
+        <div class="text-right">
+          <button mat-flat-button color="primary">Submit</button>
+        </div>
+      </mat-card>
+    </form>
+  </div>
+</div>

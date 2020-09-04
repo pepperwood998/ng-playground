@@ -45,6 +45,13 @@ const routes: Routes = [
           import('./pages/expansion-panel/expansion-panel.module').then(
             (m) => m.ExpansionPanelModule
           )
+      },
+      {
+        path: 'form-array',
+        loadChildren: () =>
+          import('./pages/form-array/form-array.module').then(
+            (m) => m.FormArrayModule
+          )
       }
     ]
   }

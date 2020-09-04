@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatChipsModule } from '@angular/material/chips';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HttpClientModule } from '@angular/common/http';
 
@@ -38,7 +39,8 @@ const MATERIAL_MODULES = [
   MatRadioModule,
   MatProgressSpinnerModule,
   MatDialogModule,
-  MatExpansionModule
+  MatExpansionModule,
+  MatChipsModule
 ];
 
 const COMPONENTS = [
