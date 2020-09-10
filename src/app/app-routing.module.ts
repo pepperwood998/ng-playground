@@ -52,6 +52,13 @@ const routes: Routes = [
           import('./pages/form-array/form-array.module').then(
             (m) => m.FormArrayModule
           )
+      },
+      {
+        path: 'quill-editor',
+        loadChildren: () =>
+          import('./pages/quill-editor/quill-editor.module').then(
+            (m) => m.QuillEditorModule
+          )
       }
     ]
   }

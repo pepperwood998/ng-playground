@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { QuillModule } from 'ngx-quill';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,7 +17,8 @@ import { ShareModule } from '#modules/share.module';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    ShareModule
+    ShareModule,
+    QuillModule.forRoot()
   ],
   providers: [InformationService, CommonService, DialogService],
   bootstrap: [AppComponent]

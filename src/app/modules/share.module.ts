@@ -15,6 +15,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HttpClientModule } from '@angular/common/http';
+import { QuillModule } from 'ngx-quill';
 
 import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
 import { SomeDialogComponent } from '#components/shared/some-dialog/some-dialog.component';
@@ -25,7 +26,8 @@ const MODULES = [
   FormsModule,
   ReactiveFormsModule,
   NgxDatatableModule,
-  HttpClientModule
+  HttpClientModule,
+  QuillModule
 ];
 
 const MATERIAL_MODULES = [
