@@ -13,6 +13,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatTabsModule } from '@angular/material/tabs';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
@@ -20,6 +21,7 @@ import { QuillModule } from 'ngx-quill';
 import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
 import { SomeDialogComponent } from '#components/shared/some-dialog/some-dialog.component';
 import { OtherDialogComponent } from '#components/shared/other-dialog/other-dialog.component';
+import { MatTabScrollRetainerDirective } from '#shared/directives/mat-tab-scroll-retainer.directive';
 
 const MODULES = [
   CommonModule,
@@ -42,13 +44,15 @@ const MATERIAL_MODULES = [
   MatProgressSpinnerModule,
   MatDialogModule,
   MatExpansionModule,
-  MatChipsModule
+  MatChipsModule,
+  MatTabsModule
 ];
 
 const COMPONENTS = [
   BaseDatatableComponent,
   SomeDialogComponent,
-  OtherDialogComponent
+  OtherDialogComponent,
+  MatTabScrollRetainerDirective
 ];
 
 @NgModule({

@@ -59,6 +59,13 @@ const routes: Routes = [
           import('./pages/quill-editor/quill-editor.module').then(
             (m) => m.QuillEditorModule
           )
+      },
+      {
+        path: 'mat-tab-bug',
+        loadChildren: () =>
+          import('./pages/mat-tab-bug/mat-tab-bug.module').then(
+            (m) => m.MatTabBugModule
+          )
       }
     ]
   }
