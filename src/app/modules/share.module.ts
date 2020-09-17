@@ -17,6 +17,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { HttpClientModule } from '@angular/common/http';
 import { QuillModule } from 'ngx-quill';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
 import { SomeDialogComponent } from '#components/shared/some-dialog/some-dialog.component';
@@ -29,7 +30,8 @@ const MODULES = [
   ReactiveFormsModule,
   NgxDatatableModule,
   HttpClientModule,
-  QuillModule
+  QuillModule,
+  ImageCropperModule
 ];
 
 const MATERIAL_MODULES = [

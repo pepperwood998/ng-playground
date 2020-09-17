@@ -13,3 +13,9 @@ button:focus {
 .mat-expanded .truncate {
   white-space: initial !important;
 }
+
+img.source-image {
+  object-fit: contain;
+  max-height: 350px !important;
+  display: initial;
+}

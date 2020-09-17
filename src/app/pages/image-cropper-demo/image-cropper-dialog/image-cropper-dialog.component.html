@@ -1,0 +1,10 @@
+<mat-dialog-content>
+  <div>
+    <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="false"
+      (imageCropped)="onImageCropped($event)">
+    </image-cropper>
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-flat-button (click)="onFinishCropImage()">close</button>
+</mat-dialog-actions>

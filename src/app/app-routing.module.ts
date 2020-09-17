@@ -66,6 +66,13 @@ const routes: Routes = [
           import('./pages/mat-tab-bug/mat-tab-bug.module').then(
             (m) => m.MatTabBugModule
           )
+      },
+      {
+        path: 'image-cropper-demo',
+        loadChildren: () =>
+          import('./pages/image-cropper-demo/image-cropper-demo.module').then(
+            (m) => m.ImageCropperDemoModule
+          )
       }
     ]
   }
