@@ -6,11 +6,11 @@
           <!-- This is the tree node template for leaf nodes -->
           <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
             <!-- use a disabled button to provide padding for tree leaf -->
-            <span class="pl-4">{{node?.name}}</span>
+            <span class="pl-4 truncate">{{node?.name}}</span>
           </mat-tree-node>
           <!-- This is the tree node template for expandable nodes -->
-          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matRipple matRippleColor
-            [ngClass]="{
+          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding [ngClass]="{
+            'hover:bg-gray-300': true,
             'bg-gray-300': node?.id === selectedCategoryId
           }">
             <button mat-icon-button matTreeNodeToggle>
@@ -18,7 +18,8 @@
                 {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
               </mat-icon>
             </button>
-            <div (click)="onCategorySelected(node)" class="flex-1 self-stretch flex items-center cursor-pointer">
+            <div (click)="onCategorySelected(node)"
+              class="flex-1 self-stretch flex items-center cursor-pointer truncate">
               {{node?.name}}
             </div>
           </mat-tree-node>
