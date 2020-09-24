@@ -1,0 +1,36 @@
+<div class="flex flex-wrap h-full p-4">
+  <div class="w-full md:w-1/3 xl:w-1/4">
+    <mat-card class="h-full overflow-auto">
+      <mat-card-content>
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+          <!-- This is the tree node template for leaf nodes -->
+          <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <!-- use a disabled button to provide padding for tree leaf -->
+            <span class="pl-4">{{node?.name}}</span>
+          </mat-tree-node>
+          <!-- This is the tree node template for expandable nodes -->
+          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding matRipple matRippleColor
+            [ngClass]="{
+            'bg-gray-300': node?.id === selectedCategoryId
+          }">
+            <button mat-icon-button matTreeNodeToggle>
+              <mat-icon class="mat-icon-rtl-mirror">
+                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+              </mat-icon>
+            </button>
+            <div (click)="onCategorySelected(node)" class="flex-1 self-stretch flex items-center cursor-pointer">
+              {{node?.name}}
+            </div>
+          </mat-tree-node>
+        </mat-tree>
+      </mat-card-content>
+    </mat-card>
+  </div>
+  <div class="w-full pt-4 md:w-2/3 xl:w-3/4 md:pt-0 md:pl-4">
+    <mat-card class="h-full overflow-auto">
+      <mat-card-content>
+        <form></form>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

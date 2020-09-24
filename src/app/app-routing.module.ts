@@ -75,6 +75,13 @@ const routes: Routes = [
           )
       }
     ]
+  },
+  {
+    path: 'mat-tree-category',
+    loadChildren: () =>
+      import('./pages/mat-tree-category/mat-tree-category.module').then(
+        (m) => m.MatTreeCategoryModule
+      )
   }
 ];
 
