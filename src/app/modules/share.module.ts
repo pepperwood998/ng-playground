@@ -24,6 +24,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { BaseDatatableComponent } from '#components/shared/base-datatable/base-datatable.component';
 import { SomeDialogComponent } from '#components/shared/some-dialog/some-dialog.component';
 import { OtherDialogComponent } from '#components/shared/other-dialog/other-dialog.component';
+import { EmitterComponent } from '#components/shared/emitter/emitter.component';
 import { MatTabScrollRetainerDirective } from '#shared/directives/mat-tab-scroll-retainer.directive';
 
 const MODULES = [
@@ -58,6 +59,7 @@ const COMPONENTS = [
   BaseDatatableComponent,
   SomeDialogComponent,
   OtherDialogComponent,
+  EmitterComponent,
   MatTabScrollRetainerDirective
 ];
 
