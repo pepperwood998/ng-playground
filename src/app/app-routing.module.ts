@@ -82,6 +82,13 @@ const routes: Routes = [
       import('./pages/mat-tree-category/mat-tree-category.module').then(
         (m) => m.MatTreeCategoryModule
       )
+  },
+  {
+    path: 'check-number',
+    loadChildren: () =>
+      import('./pages/check-number/check-number.module').then(
+        (m) => m.CheckNumberModule
+      )
   }
 ];
 

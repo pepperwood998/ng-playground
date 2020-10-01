@@ -26,6 +26,7 @@ import { SomeDialogComponent } from '#components/shared/some-dialog/some-dialog.
 import { OtherDialogComponent } from '#components/shared/other-dialog/other-dialog.component';
 import { EmitterComponent } from '#components/shared/emitter/emitter.component';
 import { MatTabScrollRetainerDirective } from '#shared/directives/mat-tab-scroll-retainer.directive';
+import { OnlyNumberDirective } from '#shared/directives/only-number.directive';
 
 const MODULES = [
   CommonModule,
@@ -60,7 +61,8 @@ const COMPONENTS = [
   SomeDialogComponent,
   OtherDialogComponent,
   EmitterComponent,
-  MatTabScrollRetainerDirective
+  MatTabScrollRetainerDirective,
+  OnlyNumberDirective
 ];
 
 @NgModule({

@@ -7,22 +7,19 @@
           <mat-select>
             <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
               <!-- This is the tree node template for leaf nodes -->
-              <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+              <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding class="min-h-0">
                 <!-- use a disabled button to provide padding for tree leaf -->
                 <button mat-icon-button disabled></button>
-                <mat-option [value]="node?.id" class="truncate">{{node?.name}}</mat-option>
+                <mat-option [value]="node?.id" class="w-full">{{node?.name}}</mat-option>
               </mat-tree-node>
               <!-- This is the tree node template for expandable nodes -->
-              <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding [ngClass]="{
-            'hover:bg-gray-300': true,
-            'bg-gray-300': node?.id === selectedCategoryId
-                }">
+              <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding class="min-h-0">
                 <button mat-icon-button matTreeNodeToggle>
                   <mat-icon class="mat-icon-rtl-mirror">
                     {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
                   </mat-icon>
                 </button>
-                <mat-option [value]="node?.id" class=" flex-1 self-stretch flex items-center cursor-pointer truncate">
+                <mat-option [value]="node?.id" class="w-full">
                   {{node?.name}}
                 </mat-option>
               </mat-tree-node>
