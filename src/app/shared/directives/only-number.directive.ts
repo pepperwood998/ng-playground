@@ -13,7 +13,7 @@ export class OnlyNumberDirective implements OnInit {
   @Input('appOnlyNumberMin') min = 0;
   @Input('appOnlyNumberDecimal') decimal: number = null;
   @Input('appOnlyNumberFloating') floating: number = null;
-  private startWithZeros = /^-?0+(\.?[1-9]+)$/;
+  private startWithZeros = /^(-?)0+(?!\.)(\.?[1-9]+)$/;
   numberRegexp: RegExp;
 
   constructor(private el: ElementRef) {}
@@ -41,7 +41,10 @@ export class OnlyNumberDirective implements OnInit {
       return;
     }
     if (this.startWithZeros.test(newValue)) {
-      this.el.nativeElement.value = newValue.replace(this.startWithZeros, '$1');
+      this.el.nativeElement.value = newValue.replace(
+        this.startWithZeros,
+        '$1$2'
+      );
       event.preventDefault();
     }
     if (this.numberRegexp.test(newValue)) {
@@ -52,10 +55,21 @@ export class OnlyNumberDirective implements OnInit {
 
   @HostListener('blur', ['$event']) onBlur(): void {
     const element = this.el.nativeElement;
-    element.value = element.value.replace(/^(-*)\.(\d*)$/, '$10.$2');
-    element.value = element.value.replace(/^(-*\d*)\.$/, '$1');
-    element.value = element.value.replace(/^-$/, this.min);
-    element.value = element.value.replace(this.startWithZeros, '$1');
+    // trim 0s
+    element.value = element.value.replace(
+      /^(-?)0*([1-9]?\d*)(\.\d*[1-9])?\.?0*$/,
+      (g1: string, g2: string, g3: string, g4: string) => {
+        let result = g2;
+        if (!g3 && !g4) {
+          return this.min;
+        }
+
+        result += g3 ? g3 : '0';
+        result += g4 ? g4 : '';
+        console.log(result);
+        return result;
+      }
+    );
     if (!this.numberRegexp.test(element.value)) {
       element.value = this.min;
     }
