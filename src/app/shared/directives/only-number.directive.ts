@@ -66,7 +66,6 @@ export class OnlyNumberDirective implements OnInit {
 
         result += g3 ? g3 : '0';
         result += g4 ? g4 : '';
-        console.log(result);
         return result;
       }
     );
