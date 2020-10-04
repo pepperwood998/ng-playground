@@ -54,9 +54,9 @@ export class OnlyNumberDirective implements OnInit {
     const element = this.el.nativeElement;
     // trim 0s
     element.value = this.blurFilter(element.value);
-    if (!this.numberRegexp.test(element.value)) {
-      element.value = this.min;
-    }
+    // if (!this.numberRegexp.test(element.value)) {
+    //   element.value = null;
+    // }
   }
 
   private blurFilter(value: string): string {

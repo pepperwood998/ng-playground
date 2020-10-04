@@ -2,9 +2,11 @@
   <mat-label>Only Number</mat-label>
   <input 
     matInput
+    required
     type="text"
     appOnlyNumber
+    [formControl]="someNumber"
     [appOnlyNumberMin]="-10"
-    [appOnlyNumberDecimal]="10"
-    [appOnlyNumberFloating]="10" />
+    [appOnlyNumberDecimal]="3"
+    [appOnlyNumberFloating]="1" />
 </mat-form-field>
