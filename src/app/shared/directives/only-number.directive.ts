@@ -26,7 +26,7 @@ export class OnlyNumberDirective implements OnInit {
     );
   }
 
-  @HostListener('keydown', ['$event']) onKeyDown(event: Event): void {
+  @HostListener('keypress', ['$event']) onKeyDown(event: Event): void {
     const keyboardEvent = event as KeyboardEvent;
     const character = keyboardEvent.key;
     const currentValue = this.el.nativeElement.value;
@@ -37,9 +37,6 @@ export class OnlyNumberDirective implements OnInit {
       selectionStart
     )}${character}${currentValue.slice(selectionStart)}`;
 
-    if (this.isException(keyboardEvent)) {
-      return;
-    }
     if (this.startWithZeros.test(newValue)) {
       this.el.nativeElement.value = newValue.replace(
         this.startWithZeros,
