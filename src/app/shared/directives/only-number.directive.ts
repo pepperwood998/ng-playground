@@ -56,22 +56,22 @@ export class OnlyNumberDirective implements OnInit {
   @HostListener('blur', ['$event']) onBlur(): void {
     const element = this.el.nativeElement;
     // trim 0s
-    element.value = element.value.replace(
+    element.value = this.blurFilter(element.value);
+    if (!this.numberRegexp.test(element.value)) {
+      element.value = this.min;
+    }
+  }
+
+  private blurFilter(value: string): string {
+    return value.replace(
       /^(-?)0*([1-9]?\d*)(\.\d*[1-9])?\.?0*$/,
       (g1: string, g2: string, g3: string, g4: string) => {
         let result = g2;
-        if (!g3 && !g4) {
-          return this.min;
-        }
-
         result += g3 ? g3 : '0';
         result += g4 ? g4 : '';
         return result;
       }
     );
-    if (!this.numberRegexp.test(element.value)) {
-      element.value = this.min;
-    }
   }
 
   private getNumberRegexp(
@@ -104,6 +104,48 @@ export class OnlyNumberDirective implements OnInit {
       allow.includes(event.key) ||
       ((event.ctrlKey || event.metaKey) && crtlCompound.includes(event.key))
     );
+  }
+
+  private unitTestBlurFilter(): void {
+    // unit testing
+    const inputs = [
+      '100009',
+      '000',
+      '00009',
+      '0900',
+      '000900',
+      '00100900',
+      '1000.009',
+      '00100.009000',
+      '00100.009',
+      '100.00900',
+      '000.00',
+      '00100.',
+      '.00100',
+      '1000.',
+      '.0001'
+    ];
+    const expected = [
+      '100009',
+      '0',
+      '9',
+      '900',
+      '900',
+      '100900',
+      '1000.009',
+      '100.009',
+      '100.009',
+      '100.009',
+      '0',
+      '100',
+      '0.001',
+      '1000',
+      '0.0001'
+    ];
+    inputs.forEach((v, i) => {
+      const output = this.blurFilter(v);
+      console.log(`${i}:`, expected[i] === output ? 'passed' : 'failed');
+    });
   }
 
   // private afterBackspaceOrDelete(
