@@ -35,7 +35,10 @@
               "./node_modules/@swimlane/ngx-datatable/assets/icons.css",
               "src/styles.scss"
             ],
-            "scripts": ["./node_modules/quill/dist/quill.min.js"]
+            "scripts": [
+              "./node_modules/quill/dist/quill.min.js",
+              "src/app/shared/utils/epos.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -105,7 +108,10 @@
               "./node_modules/@swimlane/ngx-datatable/assets/icons.css",
               "src/styles.scss"
             ],
-            "scripts": ["./node_modules/quill/dist/quill.min.js"]
+            "scripts": [
+              "./node_modules/quill/dist/quill.min.js",
+              "src/app/shared/utils/epos.js"
+            ]
           }
         },
         "lint": {

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { PrinterService } from '#services/printer.service';
 
 @Component({
   selector: 'app-check-number',
@@ -7,12 +7,20 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./check-number.component.scss']
 })
 export class CheckNumberComponent implements OnInit {
-  someNumber = new FormControl(null, [
-    Validators.required,
-    Validators.pattern(/^(?!0{2,})\d{0,3}(\.\d{0,1})?$/)
-  ]);
-
-  constructor() {}
+  constructor(private printerService: PrinterService) {}
 
   ngOnInit(): void {}
+
+  onConnect(): void {
+    this.printerService.connect();
+  }
+
+  onPrint(): void {
+    this.printerService.printReceipt([
+      {
+        type: 'text',
+        value: 'Print This!'
+      }
+    ]);
+  }
 }

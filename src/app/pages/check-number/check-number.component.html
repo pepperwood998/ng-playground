@@ -1,12 +1,3 @@
-<mat-form-field [appearance]="'outline'" D>
-  <mat-label>Only Number</mat-label>
-  <input 
-    matInput
-    required
-    type="text"
-    appOnlyNumber
-    [formControl]="someNumber"
-    [appOnlyNumberMin]="-10"
-    [appOnlyNumberDecimal]="3"
-    [appOnlyNumberFloating]="1" />
-</mat-form-field>
+<button mat-stroked-button (click)="onConnect()" color="primary">Connect</button>
+<br />
+<button mat-stroked-button (click)="onPrint()" color="primary">Print</button>
